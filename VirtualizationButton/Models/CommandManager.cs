@@ -12,7 +12,7 @@ namespace VirtualizationButton.Models
     {
         public static void EnableVirtualization()
         {
-            var processInfo = new System.Diagnostics.ProcessStartInfo
+            var process = new System.Diagnostics.ProcessStartInfo
             {
                 Verb = "runas",
                 LoadUserProfile = true,
@@ -23,12 +23,12 @@ namespace VirtualizationButton.Models
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            System.Diagnostics.Process.Start(processInfo);
+            System.Diagnostics.Process.Start(process);
         }
 
         public static void DisableVirtualization()
         {
-            var processInfo = new System.Diagnostics.ProcessStartInfo
+            var process = new System.Diagnostics.ProcessStartInfo
             {
                 Verb = "runas",
                 LoadUserProfile = true,
@@ -39,12 +39,12 @@ namespace VirtualizationButton.Models
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            System.Diagnostics.Process.Start(processInfo);
+            System.Diagnostics.Process.Start(process);
         }
 
         public static bool GetVirtualizationStatus()
         {
-            Process process2 = Process.Start(new ProcessStartInfo
+            Process process = Process.Start(new ProcessStartInfo
             {
                 FileName = "powershell",
                 Arguments = "/command Get-ComputerInfo -Property \"Hyper*\"",
@@ -53,9 +53,20 @@ namespace VirtualizationButton.Models
                 UseShellExecute = false,
                 CreateNoWindow = true
             });
-            return Convert.ToBoolean(process2.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
+            return Convert.ToBoolean(process.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
         }
 
-        
+        public static void Reboot()
+        {
+            Process process = Process.Start(new ProcessStartInfo
+            {
+                FileName = "cmd",
+                Arguments = "/c shutdown -r -t 5",
+                RedirectStandardOutput = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            });
+        }
     }
 }

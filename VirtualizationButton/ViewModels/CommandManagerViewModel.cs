@@ -60,6 +60,12 @@ namespace VirtualizationButton.ViewModels
                       {
                           CommandManager.DisableVirtualization();
                       }
+                      var answer = MessageBox.Show("Do you want to reboot now?", "Reboot", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                      if (answer == MessageBoxResult.Yes)
+                      {
+                          CommandManager.Reboot();
+                          Application.Current.Shutdown();
+                      }
 
                   }));
             }
