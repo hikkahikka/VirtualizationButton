@@ -1,0 +1,15 @@
+﻿<Window x:Class="VirtualizationButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirtualizationButton" xmlns:viewmodels="clr-namespace:VirtualizationButton.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CommandManagerViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="350" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Margin="70 100 70 100">
+            <TextBlock Text="Virtualization" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" FontSize="16"></TextBlock>
+            <ToggleButton Command ="{Binding VirtualizationCommand}" IsChecked="{Binding IsToggleActive}"  Height="50" Width="150" Margin="0 50 0 50" BorderThickness="3,3,3,3" Background="Red" BorderBrush="#FFA90707"></ToggleButton>
+        </StackPanel>
+    </Grid>
+</Window>
