@@ -37,11 +37,11 @@ namespace VirtualizationButton.ViewModels
                   {   
                       
                       if(IsToggleActive){
-                          CommandManager.EnableVirtualizatuon();
+                          CommandManager.EnableVirtualization();
                       }
                       else
                       {
-                          CommandManager.DisableVirtualizatuon();
+                          CommandManager.DisableVirtualization();
                       }
                   }));
             }
