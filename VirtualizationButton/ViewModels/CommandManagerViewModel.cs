@@ -60,7 +60,6 @@ namespace VirtualizationButton.ViewModels
                       {
                           CommandManager.DisableVirtualization();
                       }
-                      OnPropertyChanged(nameof(IsToggleEnabled));
 
                   }));
             }
