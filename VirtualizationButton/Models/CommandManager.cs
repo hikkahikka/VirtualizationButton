@@ -24,8 +24,6 @@ namespace VirtualizationButton.Models
                 WindowStyle = ProcessWindowStyle.Hidden
             };
             System.Diagnostics.Process.Start(processInfo);
-            //MessageBox.Show("enable");
-            //test commit
         }
 
         public static void DisableVirtualization()
@@ -42,7 +40,6 @@ namespace VirtualizationButton.Models
                 WindowStyle = ProcessWindowStyle.Hidden
             };
             System.Diagnostics.Process.Start(processInfo);
-            //MessageBox.Show("disable");
         }
 
         public static bool GetVirtualizationStatus()
@@ -58,5 +55,7 @@ namespace VirtualizationButton.Models
             });
             return Convert.ToBoolean(process2.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
         }
+
+        
     }
 }

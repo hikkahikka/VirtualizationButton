@@ -5,12 +5,20 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using VirtualizationButton.Models;
 
 namespace VirtualizationButton.ViewModels
 {
     public class CommandManagerViewModel : INotifyPropertyChanged
     {
+        private Models.Timer _timer = new Models.Timer();
+
+
+        private bool _isToggleEnable;
+        public bool IsToggleEnabled => _timer.IsDelayOver();
+
+
         private bool _isToggleActive ;
         public bool IsToggleActive
         {
@@ -22,6 +30,7 @@ namespace VirtualizationButton.ViewModels
                 
             }
         }
+
         public CommandManagerViewModel()
         {
             _isToggleActive = CommandManager.GetVirtualizationStatus();
@@ -34,19 +43,28 @@ namespace VirtualizationButton.ViewModels
             {
                 return virtualizatuonCommand ??
                   (virtualizatuonCommand = new RelayCommand(obj =>
-                  {   
-                      
-                      if(IsToggleActive){
+                  {
+                      if (!_timer.IsDelayOver())
+                      {
+                          IsToggleActive = !IsToggleActive;
+                          TimeSpan timeLeft = TimeSpan.FromSeconds(10) - (DateTime.Now - _timer.GetLastClickTime());
+                          MessageBox.Show($"Wait {timeLeft.Seconds} second(s)", "Too fast!", MessageBoxButton.OK, MessageBoxImage.Error);
+                          return;
+                      }
+                      _timer.SetLastClickTime();
+                      if (IsToggleActive)
+                      {
                           CommandManager.EnableVirtualization();
                       }
                       else
                       {
                           CommandManager.DisableVirtualization();
                       }
+                      OnPropertyChanged(nameof(IsToggleEnabled));
+
                   }));
             }
         }
-        // (virtualizatuonCommand = new RelayCommand(obj => IsToggleActive? CommandManager.EnableVirtualizatuon() : CommandManager.DisableVirtualizatuon())); 
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

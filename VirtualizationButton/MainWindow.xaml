@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Margin="70 100 70 100">
             <TextBlock Text="Virtualization" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" FontSize="16"></TextBlock>
-            <ToggleButton Command ="{Binding VirtualizationCommand}" IsChecked="{Binding IsToggleActive}"  Height="50" Width="150" Margin="0 50 0 50" BorderThickness="3,3,3,3" Background="Red" BorderBrush="#FFA90707"></ToggleButton>
+            <ToggleButton Command ="{Binding VirtualizationCommand}"  IsChecked="{Binding IsToggleActive}"  Height="50" Width="150" Margin="0 50 0 50" BorderThickness="3,3,3,3" Background="Red" BorderBrush="#FFA90707"></ToggleButton>
         </StackPanel>
     </Grid>
 </Window>
