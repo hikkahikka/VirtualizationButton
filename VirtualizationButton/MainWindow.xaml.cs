@@ -22,5 +22,6 @@ namespace VirtualizationButton
             InitializeComponent();
             DataContext = new CommandManagerViewModel();
         }
+
     }
 }
