@@ -47,11 +47,11 @@ namespace VirtualizationButton.ViewModels
                       if (!_timer.IsDelayOver())
                       {
                           IsToggleActive = !IsToggleActive;
-                          TimeSpan timeLeft = TimeSpan.FromSeconds(10) - (DateTime.Now - _timer.GetLastClickTime());
+                          TimeSpan timeLeft = TimeSpan.FromSeconds(10) - (DateTime.Now - _timer.LastClickTime);
                           MessageBox.Show($"Wait {timeLeft.Seconds} second(s)", "Too fast!", MessageBoxButton.OK, MessageBoxImage.Error);
                           return;
                       }
-                      _timer.SetLastClickTime();
+                      _timer.LastClickTime = DateTime.Now;
                       if (IsToggleActive)
                       {
                           CommandManager.EnableVirtualization();

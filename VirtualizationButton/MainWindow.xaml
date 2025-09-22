@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualizationButton" xmlns:viewmodels="clr-namespace:VirtualizationButton.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CommandManagerViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="350" ResizeMode="NoResize">
+        Title="Virtualization switch" Height="450" Width="350" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

@@ -10,14 +10,14 @@ namespace VirtualizationButton.Models
 {
     public class CommandManager
     {
-        public static void EnableVirtualization()
+        private static void RunCommand(string fileName, string argument)
         {
             var process = new System.Diagnostics.ProcessStartInfo
             {
                 Verb = "runas",
                 LoadUserProfile = true,
-                FileName = "powershell.exe",
-                Arguments = "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All",
+                FileName = fileName,
+                Arguments = argument,
                 RedirectStandardOutput = false,
                 UseShellExecute = true,
                 CreateNoWindow = true,
@@ -25,23 +25,9 @@ namespace VirtualizationButton.Models
             };
             System.Diagnostics.Process.Start(process);
         }
-
-        public static void DisableVirtualization()
-        {
-            var process = new System.Diagnostics.ProcessStartInfo
-            {
-                Verb = "runas",
-                LoadUserProfile = true,
-                FileName = "powershell.exe",
-                Arguments = "Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All",
-                RedirectStandardOutput = false,
-                UseShellExecute = true,
-                CreateNoWindow = true,
-                WindowStyle = ProcessWindowStyle.Hidden
-            };
-            System.Diagnostics.Process.Start(process);
-        }
-
+        public static void EnableVirtualization() => CommandManager.RunCommand("powershell.exe", "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All");
+        public static void DisableVirtualization() => CommandManager.RunCommand("powershell.exe", "Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All");
+        public static void Reboot()=>CommandManager.RunCommand("cmd", "/c shutdown -r -t 3");
         public static bool GetVirtualizationStatus()
         {
             Process process = Process.Start(new ProcessStartInfo
@@ -54,19 +40,6 @@ namespace VirtualizationButton.Models
                 CreateNoWindow = true
             });
             return Convert.ToBoolean(process.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
-        }
-
-        public static void Reboot()
-        {
-            Process process = Process.Start(new ProcessStartInfo
-            {
-                FileName = "cmd",
-                Arguments = "/c shutdown -r -t 5",
-                RedirectStandardOutput = true,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            });
         }
     }
 }

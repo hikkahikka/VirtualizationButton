@@ -9,23 +9,7 @@ namespace VirtualizationButton.Models
 {
     public class Timer
     {
-        private DateTime _lastClickTime = DateTime.MinValue;
-
-        public DateTime GetLastClickTime() { return _lastClickTime; }   
-        public void SetLastClickTime()
-        {
-            _lastClickTime = DateTime.Now;
-        }
-
-        public bool IsDelayOver()
-        {
-            if (DateTime.Now - _lastClickTime >= new TimeSpan(0, 0, 10))
-            {
-                return true;
-            }
-            
-            return false;
-        }
-
+        public DateTime LastClickTime { get; set; } = DateTime.MinValue;
+        public bool IsDelayOver()=>DateTime.Now - LastClickTime >= new TimeSpan(0, 0, 10);
     }
 }
