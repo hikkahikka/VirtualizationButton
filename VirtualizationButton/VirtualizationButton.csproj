@@ -6,18 +6,22 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <PackageIcon></PackageIcon>
+    <PackageIcon>icon.ico</PackageIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Description>An application for switching virtualization</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Images\icon.ico" />
-  </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\icon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\icon.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

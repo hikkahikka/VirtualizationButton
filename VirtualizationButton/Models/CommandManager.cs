@@ -41,5 +41,6 @@ namespace VirtualizationButton.Models
             });
             return Convert.ToBoolean(process.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
         }
+        //test commit
     }
 }
