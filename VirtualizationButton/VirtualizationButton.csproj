@@ -6,14 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Images\icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <None Remove="Images\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
