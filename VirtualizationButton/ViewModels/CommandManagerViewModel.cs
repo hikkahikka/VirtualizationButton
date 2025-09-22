@@ -14,10 +14,10 @@ namespace VirtualizationButton.ViewModels
     {
         private Models.Timer _timer = new Models.Timer();
 
+        public string VirtualizationStatus => _isToggleActive ? "Virtualization on" : "Virtualization off";
 
         private bool _isToggleEnable;
         public bool IsToggleEnabled => _timer.IsDelayOver();
-
 
         private bool _isToggleActive ;
         public bool IsToggleActive
@@ -27,15 +27,15 @@ namespace VirtualizationButton.ViewModels
             {
                 _isToggleActive = value;
                 OnPropertyChanged(nameof(IsToggleActive));
-                
+                OnPropertyChanged(nameof(VirtualizationStatus));
             }
         }
 
         public CommandManagerViewModel()
         {
             _isToggleActive = CommandManager.GetVirtualizationStatus();
-            OnPropertyChanged(nameof(IsToggleActive));
         }
+
         private RelayCommand virtualizatuonCommand;
         public RelayCommand VirtualizationCommand
         {
