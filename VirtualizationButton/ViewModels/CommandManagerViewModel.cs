@@ -30,10 +30,35 @@ namespace VirtualizationButton.ViewModels
                 OnPropertyChanged(nameof(VirtualizationStatus));
             }
         }
-
+        private static void AnalysisVirtualization(Dictionary<string, bool?> values, CommandManagerViewModel obj)
+        {
+            if (values.ContainsKey("HyperVisorPresent") && values["HyperVisorPresent"] == true)
+            {
+                obj._isToggleActive = true;
+                return;
+            }
+            obj._isToggleEnable = false;
+            if(values.ContainsKey("HyperVRequirementVirtualizationFirmwareEnabled") && values["HyperVRequirementVirtualizationFirmwareEnabled"] == false)
+            {
+                MessageBox.Show("Virtualization is disabled in the bios, the program will be closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+            if (values.ContainsKey("HyperVRequirementDataExecutionPreventionAvailable") && values["HyperVRequirementDataExecutionPreventionAvailable"] == false)
+            {
+                MessageBox.Show("Your PC does not support DEP/NX Bit.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (values.ContainsKey("HyperVRequirementSecondLevelAddressTranslation") && values["HyperVRequirementSecondLevelAddressTranslation"] == false)
+            {
+                MessageBox.Show("Your PC does not support SLAT.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (values.ContainsKey("HyperVRequirementVMMonitorModeExtensions") && values["HyperVRequirementVMMonitorModeExtensions"] == false)
+            {
+                MessageBox.Show("The virtualization extension is not supported on your computer.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
         public CommandManagerViewModel()
         {
-            _isToggleActive = CommandManager.GetVirtualizationStatus();
+            CommandManagerViewModel.AnalysisVirtualization(CommandManager.GetVirtualizationStatus(), this);
         }
 
         private RelayCommand virtualizatuonCommand;

@@ -28,7 +28,7 @@ namespace VirtualizationButton.Models
         public static void EnableVirtualization() => CommandManager.RunCommand("powershell.exe", "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All");
         public static void DisableVirtualization() => CommandManager.RunCommand("powershell.exe", "Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All");
         public static void Reboot()=>CommandManager.RunCommand("cmd", "/c shutdown -r -t 3");
-        public static bool GetVirtualizationStatus()
+        public static Dictionary<string, bool?> GetVirtualizationStatus()
         {
             Process process = Process.Start(new ProcessStartInfo
             {
@@ -39,8 +39,14 @@ namespace VirtualizationButton.Models
                 UseShellExecute = false,
                 CreateNoWindow = true
             });
-            return Convert.ToBoolean(process.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' })[0].Replace(" ", "").Split(new char[] { ':' })[1].ToLower());
+            Dictionary<string, bool?> values = new Dictionary<string, bool?>();
+            foreach (var s in process.StandardOutput.ReadToEnd().Trim().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var buff = s.Split(new char[] { ':' });
+                if (bool.TryParse(buff[1], out bool value)) values.Add(buff[0].Trim(), value);
+                else values.Add(buff[0].Trim(), null);
+            }
+            return values;
         }
-        //test commit
     }
 }
