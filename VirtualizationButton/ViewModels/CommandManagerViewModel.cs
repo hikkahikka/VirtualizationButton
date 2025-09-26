@@ -17,9 +17,6 @@ namespace VirtualizationButton.ViewModels
         public string VirtualizationStatus => _isToggleActive ? "Virtualization on" : "Virtualization off";
         public HorizontalAlignment ToggleAlignment => _isToggleActive ? HorizontalAlignment.Right : HorizontalAlignment.Left;
 
-        private bool _isToggleEnable;
-        public bool IsToggleEnabled => _timer.IsDelayOver();
-
         private bool _isToggleActive ;
         public bool IsToggleActive
         {
@@ -39,7 +36,7 @@ namespace VirtualizationButton.ViewModels
                 obj._isToggleActive = true;
                 return;
             }
-            obj._isToggleEnable = false;
+            obj._isToggleActive = false;
             if(values.ContainsKey("HyperVRequirementVirtualizationFirmwareEnabled") && values["HyperVRequirementVirtualizationFirmwareEnabled"] == false)
             {
                 MessageBox.Show("Virtualization is disabled in the bios, the program will be closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -71,10 +68,11 @@ namespace VirtualizationButton.ViewModels
                 return virtualizationCommand ??
                   (virtualizationCommand = new RelayCommand(obj =>
                   {
+                      const int CLICK_DELAY_SECONDS = 10;
                       if (!_timer.IsDelayOver())
                       {
                           IsToggleActive = !IsToggleActive;
-                          TimeSpan timeLeft = TimeSpan.FromSeconds(10) - (DateTime.Now - _timer.LastClickTime);
+                          TimeSpan timeLeft = TimeSpan.FromSeconds(CLICK_DELAY_SECONDS) - (DateTime.Now - _timer.LastClickTime);
                           MessageBox.Show($"Wait {timeLeft.Seconds} second(s)", "Too fast!", MessageBoxButton.OK, MessageBoxImage.Error);
                           return;
                       }
