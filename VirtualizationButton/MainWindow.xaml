@@ -32,7 +32,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="25,25,25,25">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="24,24,24,24">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -40,13 +40,8 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" TargetName="border" Value="Green"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="LightGreen"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="#1bdc04"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="Green"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -57,7 +52,12 @@
     <Grid>
         <StackPanel Margin="70 100 70 100">
             <Label Content="{Binding VirtualizationStatus}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" FontSize="16"></Label>
-            <ToggleButton  Style="{DynamicResource ToggleButtonStyle1}" Command ="{Binding VirtualizationCommand}"  IsChecked="{Binding IsToggleActive}"  Height="50" Width="150" Margin="0 50 0 50" BorderThickness="3,3,3,3"></ToggleButton>
+            <ToggleButton x:Name="VirtualizationToggle" Style="{DynamicResource ToggleButtonStyle1}" Command ="{Binding VirtualizationCommand}"  IsChecked="{Binding IsToggleActive}"  Height="51" Width="140" Margin="0 50 0 50" BorderThickness="3,3,3,3">
+                <DockPanel Height="{Binding ElementName=VirtualizationToggle, Path=Height}"
+                           Width="{Binding ElementName=VirtualizationToggle, Path =Width}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border Height="40" Width="40" Background="AntiqueWhite" CornerRadius="50" HorizontalAlignment="{Binding ToggleAlignment}" VerticalAlignment="Center" Margin="6 0 6 0"></Border>
+                </DockPanel>
+            </ToggleButton>
         </StackPanel>
     </Grid>
 </Window>

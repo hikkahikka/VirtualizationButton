@@ -15,6 +15,7 @@ namespace VirtualizationButton.ViewModels
         private Models.Timer _timer = new Models.Timer();
 
         public string VirtualizationStatus => _isToggleActive ? "Virtualization on" : "Virtualization off";
+        public HorizontalAlignment ToggleAlignment => _isToggleActive ? HorizontalAlignment.Right : HorizontalAlignment.Left;
 
         private bool _isToggleEnable;
         public bool IsToggleEnabled => _timer.IsDelayOver();
@@ -28,6 +29,7 @@ namespace VirtualizationButton.ViewModels
                 _isToggleActive = value;
                 OnPropertyChanged(nameof(IsToggleActive));
                 OnPropertyChanged(nameof(VirtualizationStatus));
+                OnPropertyChanged(nameof(ToggleAlignment));
             }
         }
         private static void AnalysisVirtualization(Dictionary<string, bool?> values, CommandManagerViewModel obj)
@@ -61,13 +63,13 @@ namespace VirtualizationButton.ViewModels
             CommandManagerViewModel.AnalysisVirtualization(CommandManager.GetVirtualizationStatus(), this);
         }
 
-        private RelayCommand virtualizatuonCommand;
+        private RelayCommand virtualizationCommand;
         public RelayCommand VirtualizationCommand
         {
             get
             {
-                return virtualizatuonCommand ??
-                  (virtualizatuonCommand = new RelayCommand(obj =>
+                return virtualizationCommand ??
+                  (virtualizationCommand = new RelayCommand(obj =>
                   {
                       if (!_timer.IsDelayOver())
                       {
