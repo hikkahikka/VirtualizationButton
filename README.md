@@ -6,7 +6,7 @@ It often happens that for anti-cheat applications to work correctly, they requir
 My application will help you switch the virtualization status in the Windows system without running the console and system registry.
 
 ## How do I launch the application?
-1. Download VirtualizationButton_1.1.1.exe.
+1. Download the latest release version of the project.
 2. Run VirtualizationButton.exe with administrator rights.
 
 ## Attention!
